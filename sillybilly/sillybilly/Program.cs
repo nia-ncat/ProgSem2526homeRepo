@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.Design;
+using System.ComponentModel.Design;
 using System.Net;
 
 namespace sillybilly
@@ -41,25 +41,25 @@ namespace sillybilly
                         Console.WriteLine($"{l}({vek[jmena.IndexOf(l)]}):{prumernaZnamka[jmena.IndexOf(l)]}");
 
                     }
-                    if (y == "b")
+                else if (y == "b")
+                {
+                    foreach (float m in prumernaZnamka)
                     {
-                        foreach (float m in prumernaZnamka)
+                        if (m < 2.0)
                         {
-                            if (m < 2.0)
-                            {
-                                Console.WriteLine($"{jmena[prumernaZnamka.IndexOf(m)]}({vek[prumernaZnamka.IndexOf(m)]}):{m}");
-                            }
+                            Console.WriteLine($"{jmena[prumernaZnamka.IndexOf(m)]}({vek[prumernaZnamka.IndexOf(m)]}):{m}");
                         }
                     }
-                    if (y == "c")
+                }
+                else if (y == "c")
+                {
+                    int prumernyVek = 0;
+                    foreach (int n in vek)
                     {
-                        int prumernyVek = 0;
-                        foreach (int n in vek)
-                        {
-                            prumernyVek += n;
-                        }
-                        prumernyVek /= pctStudentu;
-                        Console.WriteLine($"prumerny vek studentu je {prumernyVek}");
+                        prumernyVek += n;
+                    }
+                    prumernyVek /= pctStudentu;
+                    Console.WriteLine($"prumerny vek studentu je {prumernyVek}");
 
                     }
                 }
