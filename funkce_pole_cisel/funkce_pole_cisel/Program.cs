@@ -22,7 +22,7 @@
         }
         static int FindMax(int[] ciselnePole)
         {
-            int max = 0;
+            int max = ciselnePole[0];
             foreach (int i in ciselnePole)
                 if (i > max)
                     max = i;
@@ -52,36 +52,25 @@
 
         static int BinarySearch(int[] serazenePole, int hledaneCislo)
         {
-            int i = 0;
-            int indexHledanehoCisla = 0;
-            List<int> pomocnePoleAsi = new List<int>(serazenePole); // list protoze jsem potrebovala funkci, ktera funguje v typu list (radek 69 heh)
-           
-            while (i != hledaneCislo && pomocnePoleAsi.Count != 1)
-            {
-                i = pomocnePoleAsi[pomocnePoleAsi.Count / 2];
-                
-                if (i > hledaneCislo)
-                {
-                    pomocnePoleAsi.RemoveRange(0, pomocnePoleAsi.IndexOf(i) + 1);
-                }
-                else if (i < hledaneCislo)
-                {
-                    pomocnePoleAsi.RemoveRange(pomocnePoleAsi.IndexOf(i), pomocnePoleAsi.Count - (pomocnePoleAsi.IndexOf(i)+1)); //  odstranime tu cast seznamu kde urcite vime, ze neni hledane cislo
-                    
-                }
+            int indexNejvicNaLevo = 0;
+            int indexNejvicNaPravo = serazenePole.Length - 1;
+            int stred;
 
-            }
+            if  ((serazenePole[0] > hledaneCislo)||(serazenePole[indexNejvicNaPravo] < hledaneCislo))
+                return -1;
 
-            if (i == hledaneCislo)
+            while (indexNejvicNaPravo >= indexNejvicNaLevo)
             {
-                indexHledanehoCisla = Array.FindIndex(serazenePole, x => x == hledaneCislo);
+                stred = (indexNejvicNaLevo + indexNejvicNaPravo) / 2;
+                if (hledaneCislo == serazenePole[stred])
+                { return stred; }
+                if (hledaneCislo > serazenePole[stred])
+                { indexNejvicNaPravo = stred - 1; }
+                else
+                { indexNejvicNaLevo = stred + 1; }
             }
-            else if (pomocnePoleAsi.Count == 1)
-            {
-                indexHledanehoCisla = -1;
-            }
+            return -1;
 
-                return indexHledanehoCisla;
         }
     }
 }
