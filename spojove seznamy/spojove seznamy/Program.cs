@@ -1,4 +1,6 @@
-﻿namespace spojove_seznamy
+﻿using System.ComponentModel.Design;
+
+namespace spojove_seznamy
 {
     internal class Program
     {
@@ -10,18 +12,37 @@
             spojak.AddToEnd(5);
             spojak.AddToEnd(6);
 
-            spojak.Print();
-            Console.WriteLine(spojak.FindMax());
-            spojak.RemoveFromEnd();
-            spojak.Print();
-            spojak.AddToEnd(3);
-            spojak.AddToEnd(7);
-            spojak.AddToEnd(7);
-            spojak.RemoveDuplicates();
-            spojak.Print();
-            spojak.AddToEnd(3);
-            spojak.RemoveSingleVariables();
-            spojak.Print();
+            //spojak.Print();
+            //Console.WriteLine(spojak.FindMax());
+            //spojak.RemoveFromEnd();
+            //spojak.Print();
+            //spojak.AddToEnd(3);
+            //spojak.AddToEnd(7);
+            //spojak.AddToEnd(7);
+            //spojak.RemoveDuplicates();
+            //spojak.Print();
+            //spojak.AddToEnd(3);
+            //spojak.RemoveSingleVariables();
+            //spojak.Print();
+
+            LinkedList listA = new LinkedList();
+            listA.AddToEnd(4);
+            listA.AddToEnd(1);
+            listA.AddToEnd(0);
+            listA.AddToEnd(2);
+            listA.AddToEnd(3);
+            listA.AddToEnd(2);
+
+            LinkedList listB = new LinkedList();
+            listB.AddToEnd(0);
+            listB.AddToEnd(2);
+            listB.AddToEnd(1);
+            listB.AddToEnd(8);
+
+            //LinkedList.Union(listA, listB);
+            //LinkedList.Intersection(listA, listB);
+            //listA.Print();
+
         }
 
         class Node
@@ -150,50 +171,76 @@
             public void RemoveSingleVariables()
             {
                 Node nodeKPrirovnani = Head;
+                Node prevNode = null;
 
                 while (nodeKPrirovnani != null)
                 {
-                    Node srovnavaciNode = nodeKPrirovnani;
+                    // zjistit, jestli má kPri duplikat 
+                    Node srovnavaciNode = Head;
                     bool maDuplikat = false;
+
                     while (srovnavaciNode != null)
                     {
-                        if (nodeKPrirovnani.Value == srovnavaciNode.Next.Value)
+                        // musí být kPri != srov, aby se nezapočítal sám
+                        if ( srovnavaciNode != nodeKPrirovnani &&   nodeKPrirovnani.Value == srovnavaciNode.Value)
+                        {
                             maDuplikat = true;
-                        else
-                            srovnavaciNode = srovnavaciNode.Next;
+                            break;
+                        }    
+                        srovnavaciNode = srovnavaciNode.Next;
                     }
-                    Node nodeKodstraneni = nodeKPrirovnani;
-                    nodeKPrirovnani = nodeKPrirovnani.Next;
+
+                    // jestli nema duplikat, musim smazat
                     if (!maDuplikat)
                     {
-                        Node currentNode = Head;
-                        while (currentNode.Next != nodeKodstraneni)
+                        // spec pripad : odstraneni hlavy
+                        if (nodeKPrirovnani == Head)
                         {
-                            currentNode = currentNode.Next;
+                            Head = Head.Next;
+                            nodeKPrirovnani = Head;
+
                         }
-                        currentNode.Next = currentNode.Next.Next;
+                        else
+                        {
+                            prevNode.Next = nodeKPrirovnani.Next;
+                            nodeKPrirovnani = nodeKPrirovnani.Next;
+                        }
+
+                    }
+                    else
+                    {
+                        // ma duplikat => nic se nedeje, posun dal
+                        prevNode = nodeKPrirovnani;
+                        nodeKPrirovnani = nodeKPrirovnani.Next;
                     }
                 }
+
             }
 
             // DESTRUKTIVNI PRUNIK
             public static void Intersection(LinkedList list1, LinkedList list2)
             {
+                // odstranuju duplikaty z jednotlivych seznamu == v pripade, ze by neco bylo v 1 seznamu 2x a tento krok
+                // bych neudelala, tak by se to zapocitalo do toho spojeneho 
                 list1.RemoveDuplicates();
                 list2.RemoveDuplicates();
+                // spojuju seznamy
                 Node currentNode = list1.Head;
                 while (currentNode.Next != null)
                 { currentNode = currentNode.Next; }
                 currentNode.Next = list2.Head;
+                // destruktivne pronikam ? rsv = zustane tam jen ten prunik, rd = bude tam jen jedno z tech cisel pruniku
                 list1.RemoveSingleVariables();
                 list1.RemoveDuplicates();
             }
             public static void Union(LinkedList list1, LinkedList list2)
             {
+                // spojeni seznamu
                 Node currentNode = list1.Head;
                 while (currentNode.Next != null)
                 { currentNode = currentNode.Next; }
                 currentNode.Next = list2.Head;
+                // odstraneni duplikatu
                 list1.RemoveDuplicates();
             }
         }
