@@ -16,13 +16,13 @@ namespace trojuhelnik_test
                 }
                 else
                 {
-                    List<float> vrchol1 = new List<float>();
+                    List<int> vrchol1 = new List<int>();
                     vrchol1.Add(Convert.ToInt32(vstup));
                     vrchol1.Add(Convert.ToInt32(Console.ReadLine()));
-                    List<float> vrchol2 = new List<float> ();
+                    List<int> vrchol2 = new List<int> ();
                     vrchol2.Add(Convert.ToInt32(Console.ReadLine()));
                     vrchol2.Add(Convert.ToInt32(Console.ReadLine()));
-                    List<float> vrchol3 = new List<float> ();
+                    List<int> vrchol3 = new List<int> ();
                     vrchol3.Add(Convert.ToInt32(Console.ReadLine()));
                     vrchol3.Add(Convert.ToInt32(Console.ReadLine()));
 
@@ -45,7 +45,7 @@ namespace trojuhelnik_test
             }
 
         }
-        static double VypoctiDelku(List<float> bod1, List<float> bod2)
+        static double VypoctiDelku(List<int> bod1, List<int> bod2)
         {
             double delka = 0;
             int[] indexy = [0, 1];
