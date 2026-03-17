@@ -41,7 +41,8 @@ namespace spojove_seznamy
 
             //LinkedList.Union(listA, listB);
             //LinkedList.Intersection(listA, listB);
-            //listA.Print();
+            LinkedList vysledek = AddingLargeNumbers(listB, listA);
+            vysledek.Print();
 
         }
 
@@ -114,6 +115,20 @@ namespace spojove_seznamy
 
             }
 
+            //fce pro bonus
+            public int Length()
+            {
+                Node currNode = Head;
+                int listLength = 0;
+
+                while (currNode != null)
+                {
+                    currNode = currNode.Next;
+                    listLength++;
+                }
+
+                return listLength;
+            }
             // TODO: odebrat prvek z konce
             public void RemoveFromEnd()
             {
@@ -136,6 +151,17 @@ namespace spojove_seznamy
 
 
             }
+            //fce 2 pro bonus
+            public Node GetToEndOfList()
+            {
+                Node currNode = Head;
+
+                while (currNode.Next != null) 
+                {
+                    currNode = currNode.Next;
+                }
+                return currNode;
+            }
             // TODO: najít prvek a vrátit True nebo False, jestli tam je
             public bool FindPrvek(int hledanyPrvek)
             {
@@ -147,6 +173,21 @@ namespace spojove_seznamy
                     currentNode = currentNode.Next;
                 }
                 return false;
+            }
+            public void RemoveAll(int value)
+            {
+                Node node = Head;
+
+
+                while (node != null)
+                {
+                    if (node.Next.Value == value)
+                    {
+                        node = node.Next.Next;
+                    }
+                    node = node.Next;
+                }
+
             }
             // predtim jeste funkci na odstraneni opakovanych prvku -> intersection
             public void RemoveDuplicates()
@@ -217,7 +258,7 @@ namespace spojove_seznamy
 
             }
 
-            // DESTRUKTIVNI PRUNIK
+            // DESTRUKTIVNI PRUNIK A SJEDNOCENI
             public static void Intersection(LinkedList list1, LinkedList list2)
             {
                 // odstranuju duplikaty z jednotlivych seznamu == v pripade, ze by neco bylo v 1 seznamu 2x a tento krok
@@ -244,6 +285,69 @@ namespace spojove_seznamy
                 list1.RemoveDuplicates();
             }
         }
+
+
+        static LinkedList AddingLargeNumbers(LinkedList list1, LinkedList list2)
+        {
+            int zbytek = 0;
+
+            if (list1.Length() < list2.Length())
+            {
+                LinkedList tmp = list1;
+                list1 = list2;
+                list2 = tmp;
+            }
+
+            int zahloubeniJednotky = list1.Length();
+
+            while (list2.Length() > 0)
+            {
+                Node konecListu1 = list1.Head;
+                for (int j = 0; j < zahloubeniJednotky - 1; j++)
+                    konecListu1 = konecListu1.Next;
+
+                Node pridavame = list2.GetToEndOfList();
+                konecListu1.Value += pridavame.Value + zbytek;
+
+                if (konecListu1.Value >= 10)
+                {
+                    konecListu1.Value -= 10;
+                    zbytek = 1;
+                }
+                else
+                { zbytek = 0;}
+
+                list2.RemoveFromEnd();
+                zahloubeniJednotky--;
+            }
+
+            while (zbytek == 1 && zahloubeniJednotky > 0)
+            {
+                Node curr = list1.Head;
+                for (int j = 0; j < zahloubeniJednotky - 1; j++)
+                    curr = curr.Next;
+
+                curr.Value += 1;
+
+                if (curr.Value < 10)
+                    zbytek = 0;
+                else
+                {
+                    curr.Value = 0;
+                    zahloubeniJednotky--;
+                }
+            }
+
+            if (zbytek == 1)
+            {
+                Node novy = new Node(1);
+                novy.Next = list1.Head;
+                list1.Head = novy;
+            }
+
+            return list1;
+        }
+
 
 
     }

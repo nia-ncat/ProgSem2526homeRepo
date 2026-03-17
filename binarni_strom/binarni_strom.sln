@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36908.2 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "binarni_strom", "binarni_strom\binarni_strom.csproj", "{7A9D9D0D-F624-4E2F-9CC3-F28B9CCB2DE1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7A9D9D0D-F624-4E2F-9CC3-F28B9CCB2DE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A9D9D0D-F624-4E2F-9CC3-F28B9CCB2DE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A9D9D0D-F624-4E2F-9CC3-F28B9CCB2DE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A9D9D0D-F624-4E2F-9CC3-F28B9CCB2DE1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3B1E883B-27FC-46D7-90A6-7566EFE091B4}
+	EndGlobalSection
+EndGlobal
