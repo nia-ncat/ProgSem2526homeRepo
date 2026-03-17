@@ -34,7 +34,7 @@
             return result;
         }
 
-        
+        // muj lowpoint, nechci lhat ..
         static List<int> FindAWay(int start, int destination, int[,] neighborhood)
         {
             List<int> weg = new List<int>();
