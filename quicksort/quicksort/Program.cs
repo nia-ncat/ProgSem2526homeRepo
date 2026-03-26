@@ -14,6 +14,7 @@
         }
 
         // BONUS Č 2 - máme n čísel, vybíráme z něj 3 - pd, že jejich medián je skoro medián?
+        // podle toho co jste rikala na hodine:
         // skoromedián = 1/2 na obě strany od mediánu => to tvoří 1/2 n (počítáme i medián do skupiny skoromediánů? odhaduju, že to pořád tvoří 1/2 n)
         // celkový počet možností = n nad 3
         // počet příznivých možností = n/2 nad 3 (musí být pod, že n je min 3)
