@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿using System.Net.Security;
+using System.Reflection;
+using System.Reflection.Emit;
 
 namespace binarni_strom
 {
@@ -28,12 +30,12 @@ namespace binarni_strom
                     line = streamReader.ReadLine();
                 }
             }
-            
+
             // Najděte studenta s ID 20 (David Urban (ID: 20) ze třídy 4.A)
             Student? hledanyStudent = tree.FindValue(20);
             if (hledanyStudent != null)
             { Console.WriteLine(hledanyStudent.ToString()); }
-            else 
+            else
             { Console.WriteLine("takovy student neexistuje"); }
 
             // Najděte studenta s nejnižším ID (Kateřina Sedláček (ID: 1) ze třídy 1.B)
@@ -53,7 +55,7 @@ namespace binarni_strom
             {
                 if (id % 2 == 0)
                 { tree.Pop(id); }
-                
+
             }
 
             // Vypište strom (měli byste vidět jen ID lichá a seřazená)
@@ -93,7 +95,7 @@ namespace binarni_strom
         public Node<T>? Min(Node<T>? node)
         {
             if (Root == null)
-            {  return null; }
+            { return null; }
             Node<T> _min(Node<T> node)
             {
                 if (node.LeftSon != null)
@@ -103,13 +105,13 @@ namespace binarni_strom
 
             if (node == null)
             { return _min(Root); }
-            else 
+            else
             { return _min(node); }
 
         }
         public T? FindValue(int key)
         {
-            T? _findvalue (Node<T> node, int key)
+            T? _findvalue(Node<T> node, int key)
             {
                 if (key > node.Key)
                 { return _findvalue(node.RightSon, key); }
@@ -119,14 +121,14 @@ namespace binarni_strom
                 { return node.Value; }
             }
             return _findvalue(Root, key);
-            
+
         }
         public void Pop(int key)
         {
             Node<T> _pop(Node<T> node, int key)
             {
                 if (node == null)
-                { return null;}
+                { return null; }
                 if (key < node.Key)
                 { node.LeftSon = _pop(node.LeftSon, key); }
                 else if (key > node.Key)
@@ -148,7 +150,7 @@ namespace binarni_strom
                         node.Value = lostValue;
                         _pop(node.RightSon, s.Key);
                     }
-                   
+
 
                 }
                 return node;
@@ -180,7 +182,60 @@ namespace binarni_strom
             { Console.WriteLine(String.Join(" ", result)); }
             else { Console.WriteLine("storm je prazdny"); }
         }
-    }
+
+        private int Height(Node<T>? node)
+        {
+            if (node == null) return 0;
+            return 1 + Math.Max(Height(node.LeftSon), Height(node.RightSon));
+        }
+
+        /*public void SpecialPrint()
+        {
+            if (Root == null)
+            {
+                Console.WriteLine("storm je prazdny");
+                return;
+            }
+
+            int height = Height(Root);
+            Queue<Node<T>?> q = new Queue<Node<T>>();
+            q.Enqueue(Root);
+
+            for (int level = 0; level < height; level++)
+            {
+                int count = q.Count;
+
+                // odsazeni pred prvnim prvkem na tom levelu
+                int spaces = (height - level);
+                Console.Write(new string('\t', spaces));
+
+                for (int i = 0; i < count; i++)
+                {
+                    Node<T>? node = q.Dequeue();
+
+                    if (node != null)
+                    {
+                        Console.Write($"{node.Key,4}  "); // pro lepsi zarovnani - to jsem zjistila pomoci ai
+                        q.Enqueue(node.LeftSon);
+                        q.Enqueue(node.RightSon);
+                    }
+                    else
+                    {
+                        //Console.Write("\t");
+                        q.Enqueue(null);
+                        q.Enqueue(null);
+                    }
+
+                }
+
+                Console.WriteLine();
+        }*/
+
+
+        }
+
+    
+
 
     class Node<T> // T může být libovolný typ
     {
@@ -224,5 +279,4 @@ namespace binarni_strom
             return string.Format("{0} {1} (ID: {2}) ze třídy {3}", FirstName, LastName, Id, ClassName);
         }
     }
-
 }
